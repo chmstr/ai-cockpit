@@ -2,8 +2,8 @@
 
 - [Table of Contents](#table-of-contents)
 - [KI-Cockpit Prototyp (HR-Fieldlab)](#ki-cockpit-prototyp-hr-fieldlab)
-  - [Recommended IDE Setup](#recommended-ide-setup)
   - [Installation](#installation)
+    - [Recommended IDE Setup](#recommended-ide-setup)
     - [Install \& Run Appwrite](#install--run-appwrite)
       - [Appwrite Cloud](#appwrite-cloud)
       - [Appwrite Selfhosted](#appwrite-selfhosted)
@@ -25,17 +25,22 @@
 
 # KI-Cockpit Prototyp (HR-Fieldlab)
 
-The "KI-Cockpit" prototyp is the result of the BMAS Researchproject in Fieldlab A for Human Ressources (initiated by Chemistree GmbH: <http://www.chemistree.de>).
+The "KI-Cockpit" prototyp is the result of the BMAS Researchproject in Fieldlab A for Human Ressources. More details of the project can be found at the following links:
+
+- <http://www.chemistree.de> Chemistree GmbH initiated the research project and developed the ai-cockpit for human on the loop.
+- <https://www.kicockpit.eu/> is the website of the research project itself.
+- <https://ki-cockpit.eu/> is the website of the ai-cockpit for Human on the Loop initially developed by Chemistree.
+- <https://github.com/KI-Cockpit> is the initial github coderepository as an hub, where all other project repositories are linked from.
 
 Legend: "KI" is the short term for "Künstliche Intelligenz" (Artifical Intelligence).
 
 <a name="recommended-ide-setup"></a>
 
-## Recommended IDE Setup
+## Installation
+
+### Recommended IDE Setup
 
 - [VS Code](https://code.visualstudio.com/) + [Vue Plugin](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
-
-## Installation
 
 ### Install & Run Appwrite
 
