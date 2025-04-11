@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8" />
+      <link rel="icon"
+            type="image/svg+xml"
+            href="/vite.svg" />
+      <meta name="viewport"
+            content="width=device-width, initial-scale=1.0" />
+      <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+      <!-- <script src="https://d3js.org/d3.v7.min.js"></script> -->
+      <style>
+            /* nötig nr1. formkit-actions: display-inline -> index.html */
+            /* nötig nr1 um alle Buttons in einer Zeile */
+            .formkit-actions {
+                  display: inline;
+            }
+
+            /* nötig nr.2 um alle Buttons in einer Zeile */
+            .save-outer {
+                  display: inline;
+            }
+
+            /* nötig nr.3 um alle Buttons in einer Zeile */
+            .save-wrapper {
+                  display: inline;
+            }
+
+            .p-listbox-item.p-highlight {
+                  background-color: #b6cfee;
+            }
+
+            .p-listbox.p-component {
+                  max-width: 400px;
+            }
+
+            .cancel-button {
+                  margin-right: 10px;
+            }
+
+            [data-type=button] .formkit-input .cancel {
+                  border-style: dotted;
+            }
+            .p-button{
+                  margin-right: 10px;
+                  margin-top: 10px;
+                  margin-bottom: 0px;
+            }
+            .kic_button {
+                  background: #004b70;
+                  border: none;
+            }
+            .kic_button_create{
+                  margin-bottom: 5px;
+            }
+      </style>
+      <title>KI-Cockpit Human on Command</title>
+</head>
+
+<body>
+      <div id="app"></div>
+      <script type="module"
+              src="/src/main.js"></script>
+
+</body>
+
+</html>

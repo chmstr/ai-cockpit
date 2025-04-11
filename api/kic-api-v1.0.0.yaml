@@ -1,0 +1,289 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: KIC API
+  description: |-
+    The KI-Cockpit API (draft) is designed to realize the following usecases:
+    1. Set active autonomy level of a module (task, function etc.)
+    2. Read active autonomy level of a module  
+    3. Read all levels of autonomy of a module
+    4. Read all detail informations incl. autonomy levels of a module
+    5. Read all detail informations incl. autonomy levels of ALL modules of the whole system
+paths:
+  /v1/modules/{module_ID}/autonomy-levels/active:
+    patch:
+      summary: Set the active level of autonomy for a module, function, task etc.
+      tags:
+        - Level of Autonomy
+      parameters:
+        - $ref: '#/components/parameters/module_ID'
+      requestBody:
+        description: Autonomy level to set
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetAutonomyLevelRequest'
+            examples:
+              example1:
+                summary: Set autonomy level to 5
+                value:
+                  level: 5
+                  comment: "Adjusting autonomy for testing"
+      responses:
+        '200':
+          description: Autonomy level set successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutonomyLevel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'            
+              examples:
+                moduleNotFound:
+                  summary: Module not found
+                  value:
+                    error: "Module not found"
+                    details: "No module exists with the given ID."
+                autonomyLevelNotFound:
+                  summary: Autonomy level not found
+                  value:
+                    error: "Autonomy level not found"
+                    details: "No autonomy level set for the given module."
+    get:
+      summary: Get the active level of autonomy of a module, function, task etc.
+      tags:
+        - Level of Autonomy
+      parameters:
+        - $ref: '#/components/parameters/module_ID'
+      responses:
+        '200':
+          description: The active level of autonomy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutonomyLevel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'            
+
+  /v1/modules/{module_ID}/autonomy-levels:
+    get:
+      summary: List all levels of autonomy of a module, function, task etc.
+      tags:
+        - Level of Autonomy
+      parameters:
+        - $ref: '#/components/parameters/module_ID'
+      responses:
+        '200':
+          description: A list of all levels of autonomy
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AutonomyLevel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'            
+
+  /v1/modules/{module_ID}:
+    get:
+      summary: List all details incl. autonomylevels of a module
+      tags:
+        - Modules
+      parameters:
+        - $ref: '#/components/parameters/module_ID'
+      responses:
+        '200':
+          description: A list of details of a module
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+        '404':
+          description: Module not found
+          content:
+            application/json:
+              example:
+                error: "Module not found"
+                details: "No module exists with the given ID."         
+
+  /v1/modules:
+    get:
+      summary: List all modules with all details incl. autonomylevels for a given module
+      tags:
+        - Modules
+      responses:
+        '200':
+          description: A list of modules incl. details of a module
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                    $ref: '#/components/schemas/Module' # Definiert den Typ der Elemente im Array
+
+
+  /v1/kpis/{kpi_ID}:
+    get:
+      summary: Get labels and datasets of an KPI
+      description: Returns a list of labels and datasets. The number of labels and datasets is dynamic. 
+      tags:
+      - KPIs
+      parameters:
+      - $ref: '#/components/parameters/module_ID'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  labels:
+                    type: array
+                    items:
+                      type: string
+                    description: A list of label strings.
+                  datasets:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        label:
+                          type: string
+                          description: The label for the dataset.
+                        data:
+                          type: array
+                          items:
+                            type: number
+                          description: A list of numeric data points associated with the label.
+                example:
+                  labels:
+                    - "Woche 1-7"
+                    - "Woche 8-14"
+                    - "Woche 15-23"
+                    - "Woche 24-31"
+                  datasets:
+                    - label: "Divers"
+                      data: [30, 10, 20, 10]
+                    - label: "Frauen"
+                      data: [50, 30, 40, 40]
+                    - label: "Männer"
+                      data: [50, 60, 40, 50]
+        '404':
+          description: KPI not found
+          content:
+            application/json:
+              example:
+                error: "KPI not found"
+                details: "No KPI exists with the given ID."         
+
+
+
+
+components:
+
+  schemas:
+    AutonomyLevel:
+      type: object
+      description: Representation of a level of autonomy
+      properties:
+        level:
+          type: integer
+          minimum: 0
+          maximum: 10
+          description: Integer value of the autonomy level
+        name:
+          type: string
+          maxLength: 20
+          description: Name of the autonomy level
+        description:
+          type: string
+          maxLength: 100
+          description: Details of the autonomy level
+        active:
+          type: boolean
+          default: false
+          description: Flag, if the autonomy level is set active
+      required:
+        - level
+        - name
+
+    SetAutonomyLevelRequest:
+      type: object
+      properties:
+        level:
+          type: integer
+          minimum: 0
+          maximum: 10
+          description: The new autonomy level to set
+        comment:
+          type: string
+          description: Comment, which describes the reason why the autonomy level was changed
+      required:
+        - level
+
+    Module:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 50
+          description: ID of the module
+        name:
+          type: string
+          maxLength: 50
+          description: Name of the module
+        description:
+          type: string
+          description: Description of the module
+        autonomyLevels:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutonomyLevel'
+      required:
+        - id
+        - name
+        - autonomyLevels
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        details:
+          type: string
+      required:
+        - error
+        - details
+
+  parameters:
+    module_ID:
+      name: module_ID
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: "^[a-zA-Z0-9_-]{1,20}$"  
+      description: Unique identifier of the module
+    KPI_ID:
+      name: KPI_ID
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: "^[a-zA-Z0-9_-]{1,20}$"  
+      description: Unique identifier of a Key Performance Indicator (KPI)
+

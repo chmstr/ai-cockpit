@@ -1,0 +1,1387 @@
+{
+  "projectId": "6781f698001955d92c41",
+  "projectName": "kic",
+  "databases": [
+    {
+      "$id": "kicd",
+      "name": "kicd",
+      "enabled": true
+    }
+  ],
+  "collections": [
+    {
+      "$id": "testcases",
+      "$permissions": [
+        "create(\"users\")",
+        "read(\"users\")",
+        "update(\"users\")",
+        "delete(\"users\")"
+      ],
+      "databaseId": "kicd",
+      "name": "testcases",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
+        {
+          "key": "title",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 50,
+          "default": null
+        },
+        {
+          "key": "description",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 200,
+          "default": null
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 50,
+          "default": null
+        },
+        {
+          "key": "tectype",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": -1000,
+          "max": 1000,
+          "default": null
+        },
+        {
+          "key": "pytype",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": -1000,
+          "max": 1000,
+          "default": null
+        },
+        {
+          "key": "apiurl",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 250,
+          "default": null
+        },
+        {
+          "key": "apipayload",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 2000,
+          "default": null
+        },
+        {
+          "key": "apimethod",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 20,
+          "default": null
+        },
+        {
+          "key": "checkscript",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 500,
+          "default": null
+        },
+        {
+          "key": "testexecutions",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "testexecutions",
+          "relationType": "manyToOne",
+          "twoWay": true,
+          "twoWayKey": "testcases",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "systemId",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 1000,
+          "default": 0
+        }
+      ],
+      "indexes": []
+    },
+    {
+      "$id": "rules",
+      "$permissions": [
+        "create(\"users\")",
+        "read(\"users\")",
+        "update(\"users\")",
+        "delete(\"users\")"
+      ],
+      "databaseId": "kicd",
+      "name": "rules",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
+        {
+          "key": "userId",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "description",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 200,
+          "default": null
+        },
+        {
+          "key": "module",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "modules",
+          "relationType": "manyToOne",
+          "twoWay": true,
+          "twoWayKey": "rules",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "systemId",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 1000,
+          "default": 0
+        },
+        {
+          "key": "kpi",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "kpis",
+          "relationType": "manyToOne",
+          "twoWay": true,
+          "twoWayKey": "rules",
+          "onDelete": "setNull",
+          "side": "parent"
+        }
+      ],
+      "indexes": []
+    },
+    {
+      "$id": "logs",
+      "$permissions": [
+        "create(\"users\")",
+        "read(\"users\")",
+        "update(\"users\")",
+        "delete(\"users\")"
+      ],
+      "databaseId": "kicd",
+      "name": "logs",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
+        {
+          "key": "userId",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "description",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 200,
+          "default": null
+        },
+        {
+          "key": "action",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 200,
+          "default": null
+        },
+        {
+          "key": "systemId",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 1000,
+          "default": 0
+        }
+      ],
+      "indexes": []
+    },
+    {
+      "$id": "modules",
+      "$permissions": [
+        "create(\"users\")",
+        "read(\"users\")",
+        "update(\"users\")",
+        "delete(\"users\")"
+      ],
+      "databaseId": "kicd",
+      "name": "modules",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
+        {
+          "key": "rules",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "rules",
+          "relationType": "manyToOne",
+          "twoWay": true,
+          "twoWayKey": "module",
+          "onDelete": "setNull",
+          "side": "child"
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "description",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 200,
+          "default": null
+        },
+        {
+          "key": "autonomylevel",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 10,
+          "default": 0
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "autonomylevel_max",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 10,
+          "default": null
+        },
+        {
+          "key": "risks",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "risks",
+          "relationType": "manyToMany",
+          "twoWay": true,
+          "twoWayKey": "modules",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "autonomylevel_desc",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 500,
+          "default": null
+        },
+        {
+          "key": "logictype",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": -1000,
+          "max": 1000,
+          "default": null
+        },
+        {
+          "key": "tectype",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": -1000,
+          "max": 1000,
+          "default": null
+        },
+        {
+          "key": "pytype",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": -1000,
+          "max": 1000,
+          "default": null
+        },
+        {
+          "key": "kpis",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "kpis",
+          "relationType": "manyToMany",
+          "twoWay": true,
+          "twoWayKey": "modules",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "autonomylevels",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "autonomylevels",
+          "relationType": "manyToOne",
+          "twoWay": true,
+          "twoWayKey": "modules",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "systemId",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "min": 0,
+          "max": 9999,
+          "default": null
+        }
+      ],
+      "indexes": []
+    },
+    {
+      "$id": "kpis",
+      "$permissions": [
+        "create(\"users\")",
+        "read(\"users\")",
+        "update(\"users\")",
+        "delete(\"users\")"
+      ],
+      "databaseId": "kicd",
+      "name": "kpis",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
+        {
+          "key": "rules",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "rules",
+          "relationType": "manyToOne",
+          "twoWay": true,
+          "twoWayKey": "kpi",
+          "onDelete": "setNull",
+          "side": "child"
+        },
+        {
+          "key": "modules",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "modules",
+          "relationType": "manyToMany",
+          "twoWay": true,
+          "twoWayKey": "kpis",
+          "onDelete": "setNull",
+          "side": "child"
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 200,
+          "default": null
+        },
+        {
+          "key": "description",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 200,
+          "default": null
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "url",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 200,
+          "default": null
+        },
+        {
+          "key": "min",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": -1000,
+          "max": 1000,
+          "default": null
+        },
+        {
+          "key": "max",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": -1000,
+          "max": 1000,
+          "default": null
+        },
+        {
+          "key": "config",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 5000,
+          "default": null
+        },
+        {
+          "key": "chartdisplaymode",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 10,
+          "default": null
+        },
+        {
+          "key": "systemId",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 1000,
+          "default": 0
+        },
+        {
+          "key": "charttype",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "chartdata",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 9999,
+          "default": null
+        },
+        {
+          "key": "chartseq",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 1000,
+          "default": 0
+        }
+      ],
+      "indexes": []
+    },
+    {
+      "$id": "risks",
+      "$permissions": [
+        "create(\"users\")",
+        "read(\"users\")",
+        "update(\"users\")",
+        "delete(\"users\")"
+      ],
+      "databaseId": "kicd",
+      "name": "risks",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
+        {
+          "key": "modules",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "modules",
+          "relationType": "manyToMany",
+          "twoWay": true,
+          "twoWayKey": "risks",
+          "onDelete": "setNull",
+          "side": "child"
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "name",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 300,
+          "default": null
+        },
+        {
+          "key": "description",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 5000,
+          "default": null
+        },
+        {
+          "key": "category",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 200,
+          "default": null
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "forallmodules",
+          "type": "boolean",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "default": false
+        },
+        {
+          "key": "probability",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 100,
+          "default": null
+        },
+        {
+          "key": "impact",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 100,
+          "default": null
+        },
+        {
+          "key": "residual_probability",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 100,
+          "default": null
+        },
+        {
+          "key": "residual_impact",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 100,
+          "default": null
+        },
+        {
+          "key": "biastypes",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": true,
+          "min": -1000,
+          "max": 1000,
+          "default": null
+        },
+        {
+          "key": "systemId",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 1000,
+          "default": 0
+        },
+        {
+          "key": "poolriskId",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "rating",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 100,
+          "default": 0
+        },
+        {
+          "key": "source",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 50,
+          "default": null
+        }
+      ],
+      "indexes": []
+    },
+    {
+      "$id": "measures",
+      "$permissions": [
+        "create(\"users\")",
+        "read(\"users\")",
+        "update(\"users\")",
+        "delete(\"users\")"
+      ],
+      "databaseId": "kicd",
+      "name": "measures",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
+        {
+          "key": "title",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "description",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 250,
+          "default": null
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "systemId",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 1000,
+          "default": 0
+        }
+      ],
+      "indexes": []
+    },
+    {
+      "$id": "risk2measure",
+      "$permissions": [
+        "create(\"users\")",
+        "read(\"users\")",
+        "update(\"users\")",
+        "delete(\"users\")"
+      ],
+      "databaseId": "kicd",
+      "name": "risk2measure",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
+        {
+          "key": "userId",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "type",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "risk",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "risks",
+          "relationType": "manyToOne",
+          "twoWay": false,
+          "twoWayKey": "risk2measure",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "measure",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "measures",
+          "relationType": "manyToOne",
+          "twoWay": false,
+          "twoWayKey": "risk2measure",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "systemId",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 1000,
+          "default": 0
+        }
+      ],
+      "indexes": []
+    },
+    {
+      "$id": "risks2testcases",
+      "$permissions": [
+        "create(\"users\")",
+        "read(\"users\")",
+        "update(\"users\")",
+        "delete(\"users\")"
+      ],
+      "databaseId": "kicd",
+      "name": "risks2testcases",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
+        {
+          "key": "userId",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "type",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "risk",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "risks",
+          "relationType": "manyToOne",
+          "twoWay": false,
+          "twoWayKey": "risks2testcases",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "testcase",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "testcases",
+          "relationType": "manyToOne",
+          "twoWay": false,
+          "twoWayKey": "risks2testcases",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "systemId",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 1000,
+          "default": 0
+        }
+      ],
+      "indexes": []
+    },
+    {
+      "$id": "risks2rules",
+      "$permissions": [
+        "create(\"users\")",
+        "read(\"users\")",
+        "update(\"users\")",
+        "delete(\"users\")"
+      ],
+      "databaseId": "kicd",
+      "name": "risks2rules",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
+        {
+          "key": "userId",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "type",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "risk",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "risks",
+          "relationType": "manyToOne",
+          "twoWay": false,
+          "twoWayKey": "risks2rules",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "rule",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "rules",
+          "relationType": "manyToOne",
+          "twoWay": false,
+          "twoWayKey": "risks2rules",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "systemId",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 1000,
+          "default": 0
+        }
+      ],
+      "indexes": []
+    },
+    {
+      "$id": "risks2kpis",
+      "$permissions": [
+        "create(\"users\")",
+        "read(\"users\")",
+        "update(\"users\")",
+        "delete(\"users\")"
+      ],
+      "databaseId": "kicd",
+      "name": "risks2kpis",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
+        {
+          "key": "userId",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "type",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "risk",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "risks",
+          "relationType": "manyToOne",
+          "twoWay": false,
+          "twoWayKey": "risks2kpis",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "kpi",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "kpis",
+          "relationType": "manyToOne",
+          "twoWay": false,
+          "twoWayKey": "risks2kpis",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "systemId",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 1000,
+          "default": 0
+        }
+      ],
+      "indexes": []
+    },
+    {
+      "$id": "testexecutions",
+      "$permissions": [
+        "create(\"users\")",
+        "read(\"users\")",
+        "update(\"users\")",
+        "delete(\"users\")"
+      ],
+      "databaseId": "kicd",
+      "name": "testexecutions",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
+        {
+          "key": "testcases",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "testcases",
+          "relationType": "manyToOne",
+          "twoWay": true,
+          "twoWayKey": "testexecutions",
+          "onDelete": "setNull",
+          "side": "child"
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "resultstatus",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": -1000,
+          "max": 1000,
+          "default": null
+        },
+        {
+          "key": "execstatus",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": -10,
+          "max": 50,
+          "default": 0
+        },
+        {
+          "key": "log",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 1000,
+          "default": null
+        }
+      ],
+      "indexes": []
+    },
+    {
+      "$id": "autonomylevels",
+      "$permissions": [
+        "create(\"users\")",
+        "read(\"users\")",
+        "update(\"users\")",
+        "delete(\"users\")"
+      ],
+      "databaseId": "kicd",
+      "name": "autonomylevels",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
+        {
+          "key": "modules",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "modules",
+          "relationType": "manyToOne",
+          "twoWay": true,
+          "twoWayKey": "autonomylevels",
+          "onDelete": "setNull",
+          "side": "child"
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "level",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "min": 0,
+          "max": 100,
+          "default": null
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 200,
+          "default": null
+        },
+        {
+          "key": "description",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 2000,
+          "default": null
+        }
+      ],
+      "indexes": []
+    },
+    {
+      "$id": "systems",
+      "$permissions": [
+        "create(\"users\")",
+        "read(\"users\")",
+        "update(\"users\")",
+        "delete(\"users\")"
+      ],
+      "databaseId": "kicd",
+      "name": "systems",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
+        {
+          "key": "title",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 100,
+          "default": null
+        },
+        {
+          "key": "systemId",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "min": 0,
+          "max": 99999,
+          "default": null
+        },
+        {
+          "key": "description",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 9999,
+          "default": null
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": true,
+          "array": false,
+          "size": 49,
+          "default": null
+        },
+        {
+          "key": "isPool",
+          "type": "boolean",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "default": false
+        }
+      ],
+      "indexes": []
+    }
+  ]
+}

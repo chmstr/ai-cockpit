@@ -1,0 +1,25 @@
+{
+  "name": "vue",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@formkit/tempo": "^0.0.15",
+    "@formkit/themes": "^1.5.9",
+    "@formkit/vue": "^1.5.9",
+    "appwrite": "^13.0.2",
+    "chart.js": "^4.4.3",
+    "primevue": "^3.49.1",
+    "quill": "^2.0.0-rc.5",
+    "vue": "^3.4.19"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "vite": "^5.1.4"
+  }
+}

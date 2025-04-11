@@ -1,0 +1,7 @@
+{
+  "levels": [
+    { "desc": "Alles händisch", "name": "Manuell", "level": "0" },
+    { "desc": "Halbautomatisch", "name": "Halbautomatisch", "level": "1" },
+    { "desc": "Alles Vollautomatisch", "name": "Vollautomatisch", "level": "2" }
+  ]
+}
