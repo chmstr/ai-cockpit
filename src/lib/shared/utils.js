@@ -75,7 +75,7 @@ export async function sendPostRequest( url, data ){
 
   // Send the POST request using fetch
   await fetch(url, {
-    method: 'PATCH', // Specify the HTTP method
+    method: 'POST', // Specify the HTTP method
     // headers: {
     //   'Content-Type': 'application/json' // Specify the content type
     // },
@@ -112,7 +112,7 @@ export async function sendPatchRequest(url, level, comment) {
     console.log("payload: ", payload);
 
     const response = await fetch(url, {
-      method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
