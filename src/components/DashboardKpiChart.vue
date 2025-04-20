@@ -226,11 +226,14 @@ function createAlarmMessages(cd) {
 }
 
 function addKpiAlarmZones(cd) {
-  let colors = ["orange", "green", "blue"];
+  // let colors = ["orange", "green", "blue"];
+  let colors = ["#5ACAF8", "#A847E3", "#FEC93B", "#272264"];
+
   let i = 0;
 
   cd.datasets.forEach((ds) => {
     ds.borderColor = colors[i];
+    ds.borderWidth = 2;
     i++;
 
     ds.pointBackgroundColor = function (context) {
@@ -243,7 +246,7 @@ function addKpiAlarmZones(cd) {
 
     ds.pointBorderColor = function (context) {
       const value = context.raw;
-      let c = "black";
+      let c = "#707070";
       if (props.kpi.max && value > props.kpi.max) c = "red";
       if (props.kpi.min && value < props.kpi.min) c = "red";
       return c;
@@ -268,6 +271,7 @@ function addKpiAlarmZones(cd) {
     fill: -1,
     borderDash: [5, 5],
     tension: 0.4,
+    pointRadius: 2,
   };
   if (props.kpi.max) cd.datasets.push(ds_max);
 
@@ -279,6 +283,7 @@ function addKpiAlarmZones(cd) {
     // fill: true,
     borderDash: [5, 5],
     tension: 0.4,
+    pointRadius: 2,
   };
   if (props.kpi.min) cd.datasets.push(ds_min);
 
@@ -309,22 +314,19 @@ const decreaseSize = () => {
     KPI: {{ kpi.title }}
     <span v-if="props.kpi.max"> / Max: {{ props.kpi.max }}</span>
     <span v-if="props.kpi.min"> / Min: {{ props.kpi.min }}</span>
-    <Chart
-      ref="primeChart"
-      v-if="props.kpi.chartdisplaymode == 3"
-      :type="props.kpi.charttype"
-      :data="chartData"
-      :options="chartOptions"
-      :key="props.kpi.$updatedAt"
-    />
-    <strong
-      ><span v-if="alarms.length == 0">Keine </span> {{ headline }}</strong
-    >
+    <Chart ref="primeChart"
+           v-if="props.kpi.chartdisplaymode == 3"
+           :type="props.kpi.charttype"
+           :data="chartData"
+           :options="chartOptions"
+           :key="props.kpi.$updatedAt" />
+    <strong><span v-if="alarms.length == 0">Keine </span> {{ headline }}</strong>
     <ul>
       <li v-for="alarm in alarms">{{ alarm }}</li>
     </ul>
   </div>
-  <div class="controls" v-if="false">
+  <div class="controls"
+       v-if="false">
     <button @click="increaseSize">Größer</button>
     <button @click="decreaseSize">Kleiner</button>
   </div>
@@ -335,6 +337,6 @@ const decreaseSize = () => {
   text-align: left;
   min-width: 400px;
 }
-.del {
-}
+
+.del {}
 </style>

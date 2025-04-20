@@ -51,13 +51,23 @@ import RuleList from './components/RuleList.vue'
 import Rule from './components/Rule.vue'
 import EditorAdmin from './components/EditorAdmin.vue'
 
+
 const app = createApp(App);
 app.use(PrimeVue, {
     unstyled: false
 });
+app.use(plugin, defaultConfig({
+    config: {
+        classes: {
+            submit: 'kic-submit-button',
+        },
+    },
+}))
+//app.use(plugin, defaultConfig(config))
+
 app.use(ConfirmationService);
 app.use(DialogService);
-app.use(plugin, defaultConfig(config))
+
 app.component('Button', Button);
 app.component('ButtonGroup', ButtonGroup);
 app.component('InputText', InputText);
@@ -99,5 +109,6 @@ app.component('Tag', Tag);
 app.component('Slider', Slider);
 app.component('Menu', Menu);
 app.component('SelectButton', SelectButton);
+
 
 app.mount('#app');
