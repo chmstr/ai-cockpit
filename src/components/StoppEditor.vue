@@ -12,7 +12,7 @@ const emit = defineEmits(["onCancel", "onSave"]);
 const dialogRef = inject("dialogRef");
 const editEntity = ref(""); //generic entity name (ens = sein)
 
-onMounted(() => {});
+onMounted(() => { });
 
 function log(act, desc) {
   let log_values = {
@@ -95,24 +95,21 @@ function cancel() {
   Die Ausführung der Stopptaste führt zu einer Änderung der Autonomiesstufen
   folgender Module:
 
-  <DataTable
-    :value="modules.current"
-    dataKey="$id"
-    tableClass="listtable"
-    showGridlines
-    stripedRows
-    :rows="10"
-    sortField="title"
-    :sortOrder="+1"
-  >
-    <Column
-      field="title"
-      header="Modul-Name"
-      style="vertical-align: text-top"
-      sortable
-    ></Column>
+  <DataTable :value="modules.current"
+             dataKey="$id"
+             tableClass="listtable"
+             showGridlines
+             stripedRows
+             :rows="10"
+             sortField="title"
+             :sortOrder="+1">
+    <Column field="title"
+            header="Modul-Name"
+            style="vertical-align: text-top"
+            sortable></Column>
 
-    <Column header="Autonomistufen-Änderung" style="vertical-align: text-top">
+    <Column header="Autonomistufen-Änderung"
+            style="vertical-align: text-top">
       <template #body="{ data }">
         {{ data.autonomylevel }} -> {{ data.stoplevel }}
         <b>{{ getLevelChangeInfo(data.autonomylevel, data.stoplevel) }}</b>
@@ -122,40 +119,34 @@ function cancel() {
 
   <div class="row"></div>
   <br />
-  <FormKit
-    type="form"
-    @submit="formSubmit"
-    submit-label="KI-Stopp Taste ausführen!"
-    #default="{ value }"
-    prefix-icon="check"
-    v-model="editEntity"
-    :submit-attrs="{
-      inputClass: 'stop-input',
-      wrapperClass: 'stop-wrapper',
-      outerClass: 'stop-outer',
-      ignore: false,
-    }"
-    :config="{ disabled: !canEdit }"
-  >
+  <FormKit type="form"
+           @submit="formSubmit"
+           submit-label="KI-Stopp Taste ausführen!"
+           #default="{ value }"
+           prefix-icon="check"
+           v-model="editEntity"
+           :submit-attrs="{
+            id: 'stop-button',
+            inputClass: 'stop-input',
+            wrapperClass: 'stop-wrapper',
+            outerClass: 'stop-outer',
+            ignore: false,
+          }"
+           :config="{ disabled: !canEdit }">
     <!-- validation="required|not:Admin" -->
 
-    <FormKit
-      type="textarea"
-      name="description"
-      label="Begründung"
-      help=""
-      placeholder="Begründung der Änderung"
-      validation="required|not:Admin"
-    />
+    <FormKit type="textarea"
+             name="description"
+             label="Begründung"
+             help=""
+             placeholder="Begründung der Änderung"
+             validation="required|not:Admin" />
 
-    <Button
-      style="margin-bottom: 20px"
-      type="button"
-      @click="cancel()"
-      severity="danger"
-      outlined
-      >Cancel</Button
-    >
+    <Button style="margin-bottom: 20px"
+            type="button"
+            @click="cancel()"
+            severity="danger"
+            outlined>Cancel</Button>
   </FormKit>
 </template>
 <style scoped>
@@ -170,34 +161,30 @@ function cancel() {
 .column {
   flex: 50%;
 }
-
-.listtable {
-}
-
-.stopbutton {
-  background-color: red;
-  border: none;
-  color: white;
-  padding: 50px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  border-radius: 50px;
-}
-
-.my-button {
-  background-color: red;
-  border-radius: 1rem;
-  text-align: center;
-  padding: 5px;
-}
 </style>
 <style>
+#stop-button {
+  background-color: #ea443c;
+  border: 4px solid #cc0000;
+  /* Dunklerer roter Rand für Definition */
+  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.3);
+  /* Leichter Schatten für Hervorhebung */
+  cursor: pointer;
+  /* Mauszeiger als Hand, um Interaktivität anzuzeigen */
+  transition: background-color 0.3s ease;
+  /* Sanfte Übergang für Hover-Effekt */
+}
+
+#stop-button:hover {
+  background-color: #e60000;
+  /* Noch dunkleres Rot beim Überfahren */
+  border-color: #990000;
+  /* Dunklerer Rand beim Überfahren */
+}
+
 [data-type="submit"] .stop-input {
   background-color: #ea443c;
-  border-radius: 10px;
+  border-radius: 50px;
   padding: 50px;
   font-weight: bolder;
   font-size: x-large;
