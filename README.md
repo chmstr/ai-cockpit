@@ -1,6 +1,6 @@
 # CHEMISTREE AI Cockpit
 
-![KIC Screenshot](docu/kic_screenshot25.png)
+![KIC Screenshot](docu/kic_screenshot26.png)
 
 This AI cockpit prototype is the result of the research project “KI-Cockpit”, partly funded by the German Ministry of Labour and Social Affairs, 2023-2025.  
 
