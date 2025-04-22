@@ -113,107 +113,96 @@ function formatDate(date) {
     <CreateButton :createMethod="create" />
 
     <!-- <ToggleButton v-model="showRisks" onLabel="Risiken" offLabel="Risiken" /> -->
-    <ToggleButton
-      v-model="showLogictype"
-      onLabel="Logiktyp"
-      offLabel="Logiktyp"
-    />
-    <ToggleButton
-      class="togglecol"
-      v-model="showALs"
-      onLabel="Autonomiestufen"
-      offLabel="Autonomiestufen"
-    />
-    <DataTable
-      :value="ens.current"
-      dataKey="$id"
-      tableClass="listtable"
-      showGridlines
-      stripedRows
-      paginator
-      :rows="10"
-      :rowsPerPageOptions="[10, 20, 50]"
-      sortField="title"
-      :sortOrder="+1"
-    >
-      <Column
-        field="title"
-        header="Modul-Name"
-        style="vertical-align: text-top"
-        sortable
-      ></Column>
+    <ToggleButton v-model="showLogictype"
+                  onLabel="Logiktyp"
+                  offLabel="Logiktyp" />
+    <ToggleButton class="togglecol"
+                  v-model="showALs"
+                  onLabel="Autonomiestufen"
+                  offLabel="Autonomiestufen" />
+    <DataTable :value="ens.current"
+               dataKey="$id"
+               tableClass="listtable"
+               showGridlines
+               stripedRows
+               paginator
+               :rows="10"
+               :rowsPerPageOptions="[10, 20, 50]"
+               sortField="title"
+               :sortOrder="+1">
+      <Column field="title"
+              header="Modul-Name"
+              style="vertical-align: text-top"
+              sortable></Column>
 
-      <Column
-        v-if="showLogictype"
-        field="logictype"
-        header="Logiktype"
-        style="vertical-align: text-top"
-        sortable
-      >
+      <Column v-if="showLogictype"
+              field="logictype"
+              header="Logiktyp"
+              style="vertical-align: text-top"
+              sortable>
         <template #body="{ data }">
           {{ getLogictype(data.logictype) }}
         </template>
       </Column>
-      <Column v-if="showRisks" field="risks" header="Risiken" sortable>
+      <Column v-if="showRisks"
+              field="risks"
+              header="Risiken"
+              sortable>
         <template #body="{ data }">
           <ul>
             <li v-for="title in getRiskTitles(data.risks)">{{ title }}</li>
           </ul>
         </template>
       </Column>
-      <Column
-        field="autonomylevel"
-        header="Autonomie-Level"
-        v-if="showALs"
-        sortable
-      >
+      <Column field="autonomylevel"
+              header="Autonomie-Levels"
+              v-if="showALs"
+              sortable>
         <template #body="{ data }">
-          <DataTable
-            :value="getAutonomyLevelsByModuleId(data.$id)"
-            dataKey="$id"
-            class="table"
-            showGridlines
-            sortField="level"
-            :sortOrder="+1"
-          >
-            <Column field="level" header="Level"></Column>
-            <Column field="title" header="Name"></Column>
+          <DataTable :value="getAutonomyLevelsByModuleId(data.$id)"
+                     dataKey="$id"
+                     class="table"
+                     showGridlines
+                     sortField="level"
+                     :sortOrder="+1">
+            <Column field="level"
+                    header="Level"></Column>
+            <Column field="title"
+                    header="Name"></Column>
           </DataTable>
           Aktueller Level: {{ data.autonomylevel }}<br />
           Stopp-Level: {{ data.stoplevel }}
         </template>
       </Column>
-      <Column
-        v-if="showUpdateAt"
-        field="$updatedAt"
-        header="Letzte Änderung"
-        sortable
-      >
+      <Column v-if="showUpdateAt"
+              field="$updatedAt"
+              header="Letzte Änderung"
+              sortable>
         <template #body="{ data }">
           {{ formatDate(data.$updatedAt) }}
         </template>
       </Column>
       <Column>
         <template #body="{ data }">
-          <Button type="button" @click="showForm(data.$id)" class="kic_button">
+          <Button type="button"
+                  @click="showForm(data.$id)"
+                  class="kic_button">
             Edit
           </Button>
-          <Button
-            v-if="user.current && canEdit"
-            type="button"
-            label="Delete"
-            severity="danger"
-            @click="confirmDelete($event, data)"
-            outlined
-            >Delete</Button
-          >
+          <Button v-if="user.current && canEdit"
+                  type="button"
+                  label="Delete"
+                  severity="danger"
+                  @click="confirmDelete($event, data)"
+                  outlined>Delete</Button>
         </template>
       </Column>
     </DataTable>
 
-    <Button type="button" class="kic_button" severity="info" @click="reload"
-      >Refresh</Button
-    >
+    <Button type="button"
+            class="kic_button"
+            severity="info"
+            @click="reload">Refresh</Button>
   </section>
 </template>
 
