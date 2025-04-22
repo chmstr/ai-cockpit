@@ -195,73 +195,75 @@ const save = () => {
 
 <template>
   <section v-if="user.current">
-    <div v-if="showEditor" class="container">
+    <div v-if="showEditor"
+         class="container">
       <label for="risk">Risiko-Name</label>
-      <Dropdown
-        id="risk"
-        v-model="riskid"
-        :options="risk_options"
-        optionLabel="title"
-        optionValue="value"
-        :disabled="!isNew"
-        placeholder="Select a Risk"
-      />
+      <Dropdown id="risk"
+                v-model="riskid"
+                :options="risk_options"
+                optionLabel="title"
+                optionValue="value"
+                :disabled="!isNew"
+                placeholder="Select a Risk" />
 
-      <Splitter style="min-height: 550px" class="mb-5">
-        <SplitterPanel
-          :size="25"
-          :minSize="10"
-          class="flex align-items-center justify-content-center"
-        >
-          <Listbox
-            id="type"
-            v-model="type"
-            :options="type_options"
-            optionLabel="name"
-            optionValue="value"
-            placeholder="Select a Type"
-          />
-          <Button
-            type="button"
-            @click="save()"
-            label="Save"
-            v-if="canEdit.value"
-          />
-          <Button type="button" @click="cancel()" severity="danger" outlined
-            >Cancel</Button
-          >
+      <Splitter style="min-height: 550px"
+                class="mb-5">
+        <SplitterPanel :size="25"
+                       :minSize="10"
+                       class="flex align-items-center justify-content-center">
+          <Listbox id="type"
+                   v-model="type"
+                   :options="type_options"
+                   optionLabel="name"
+                   optionValue="value"
+                   placeholder="Select a Type" />
+          <Button type="button"
+                  @click="save()"
+                  label="Save"
+                  class="kic-button"
+                  id="kic-risk2measure-save"></Button>
+          <Button type="button"
+                  @click="cancel()"
+                  severity="danger"
+                  outlined>Cancel</Button>
         </SplitterPanel>
-        <SplitterPanel
-          :size="75"
-          class="flex align-items-center justify-content-center"
-        >
+        <SplitterPanel :size="75"
+                       class="flex align-items-center justify-content-center">
           <ScrollPanel style="width: 100%; height: 550px">
-            <Listbox
-              id="measure"
-              filter
-              v-model="measureid"
-              :options="measure_options"
-              optionLabel="title"
-              optionValue="value"
-              placeholder="Select a Measure"
-            />
+            <Listbox id="measure"
+                     v-model="measureid"
+                     :options="measure_options"
+                     optionLabel="title"
+                     optionValue="value"
+                     placeholder="Select a Measure" />
           </ScrollPanel>
         </SplitterPanel>
       </Splitter>
 
-      <div v-if="!isNew" class="displayelement">Created: {{ createdAt }}</div>
-      <div v-if="!isNew" class="displayelement">Updated: {{ updatedAt }}</div>
-      <div v-if="!isNew" class="displayelement">
+      <!-- <div v-if="!isNew"
+           class="displayelement">Created: {{ createdAt }}</div>
+      <div v-if="!isNew"
+           class="displayelement">Updated: {{ updatedAt }}</div>
+      <div v-if="!isNew"
+           class="displayelement">
         SID: {{ editEntity?.systemId }}
-      </div>
+      </div> -->
     </div>
   </section>
   <section v-else>
     <p>Please login to create an entity.</p>
   </section>
 </template>
+<style></style>
 
 <style scoped>
+#kic-risk2measure-save {
+  background: #004b70;
+  border: none;
+  font-size: medium;
+}
+
+
 #risk,
 #type,
 #measure {
