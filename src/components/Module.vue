@@ -166,7 +166,7 @@ const confirmDelete = (event, en) => {
 const formSubmit = (fields) => {
   let logaction = "";
 
-  //einzige stelle (neben dem template), wo das Mapping der Felder passiert
+  //einzige stelle (neben der db und dem ui), wo das Mapping der Felder passiert
   let edit_values = {
     title: editEntity.value.title,
     description: editEntity.value.description,
@@ -175,6 +175,7 @@ const formSubmit = (fields) => {
     systemId: editEntity.value.systemId,
     apiurl: editEntity.value.apiurl,
     apiurl_al_active: editEntity.value.apiurl_al_active,
+    apimode: editEntity.value.apimode,
     risks: risk_ids.value,
     logictype: logictype.value,
   };
@@ -227,137 +228,173 @@ async function importAls() {
 
 <template>
   <section v-if="user.current">
-    <div v-if="showEditor"
-         class="container">
-      <FormKit type="form"
-               @submit="formSubmit"
-               submit-label="Save"
-               #default="{ value }"
-               prefix-icon="check"
-               v-model="editEntity"
-               :submit-attrs="{
-                class: 'toms-button',
-                inputClass: 'unused',
-                wrapperClass: 'save-wrapper',
-                outerClass: 'save-outer',
-                ignore: false,
-              }"
-               :config="{ disabled: !canEdit }">
-        <FormKit type="text"
-                 name="title"
-                 label="Name"
-                 validation="required|not:Admin"
-                 placeholder="Modul-Name"
-                 help="" />
+    <div v-if="showEditor" class="container">
+      <FormKit
+        type="form"
+        @submit="formSubmit"
+        submit-label="Save"
+        #default="{ value }"
+        prefix-icon="check"
+        v-model="editEntity"
+        :submit-attrs="{
+          class: 'toms-button',
+          inputClass: 'unused',
+          wrapperClass: 'save-wrapper',
+          outerClass: 'save-outer',
+          ignore: false,
+        }"
+        :config="{ disabled: !canEdit }"
+      >
+        <FormKit
+          type="text"
+          name="title"
+          label="Name"
+          validation="required|not:Admin"
+          placeholder="Modul-Name"
+          help=""
+        />
 
         <TabView>
-          <TabPanel v-if="!isNew"
-                    header="Autonomiestufen">
+          <TabPanel v-if="!isNew" header="Autonomiestufen">
             <CreateButton :createMethod="create" />
 
-            <DataTable :value="getAutonomyLevelsByModuleId(gid)"
-                       dataKey="$id"
-                       resizableColumns
-                       columnResizeMode="expand"
-                       showGridlines
-                       stripedRows
-                       sortField="level"
-                       :sortOrder="+1"
-                       tableClass="al_table"
-                       tableStyle="padding: 0.3rem">
-              <Column field="level"
-                      header="Stufe (ID)"
-                      bodyClass="text-center"></Column>
-              <Column field="title"
-                      header="Name der Autonomiestufe"></Column>
+            <DataTable
+              :value="getAutonomyLevelsByModuleId(gid)"
+              dataKey="$id"
+              resizableColumns
+              columnResizeMode="expand"
+              showGridlines
+              stripedRows
+              sortField="level"
+              :sortOrder="+1"
+              tableClass="al_table"
+              tableStyle="padding: 0.3rem"
+            >
+              <Column
+                field="level"
+                header="Stufe (ID)"
+                bodyClass="text-center"
+              ></Column>
+              <Column field="title" header="Name der Autonomiestufe"></Column>
               <!-- <Column field="description"
                       header="Beschreibung"></Column> -->
               <Column>
                 <template #body="{ data }">
-                  <Button type="button"
-                          class="kic_button"
-                          @click="showAutonomylevelForm(data.$id)">
+                  <Button
+                    type="button"
+                    class="kic_button"
+                    @click="showAutonomylevelForm(data.$id)"
+                  >
                     Edit
                   </Button>
-                  <Button v-if="user.current && canEdit"
-                          type="button"
-                          label="Delete"
-                          severity="danger"
-                          @click="confirmDelete($event, data)"
-                          outlined>Delete</Button>
+                  <Button
+                    v-if="user.current && canEdit"
+                    type="button"
+                    label="Delete"
+                    severity="danger"
+                    @click="confirmDelete($event, data)"
+                    outlined
+                    >Delete</Button
+                  >
                 </template>
               </Column>
             </DataTable>
 
-            <FormKit type="text"
-                     name="autonomylevel"
-                     label="Aktuelle Stufe"
-                     number="integer"
-                     validation=""
-                     placeholder="Autonomie-Level"
-                     wrapper-class="al_start"
-                     help="" />
+            <FormKit
+              type="text"
+              name="autonomylevel"
+              label="Aktuelle Stufe"
+              number="integer"
+              validation=""
+              placeholder="Autonomie-Level"
+              wrapper-class="al_start"
+              help=""
+            />
 
-            <FormKit type="text"
-                     name="stoplevel"
-                     number="integer"
-                     label="Autonomielevel bei Stopptaste"
-                     placeholder="Stopplevel"
-                     wrapper-class="al_start"
-                     help="Das ist der Autonomielevel, in den das Modul bei Drücken der Stopptaste versetzt wird." />
+            <FormKit
+              type="text"
+              name="stoplevel"
+              number="integer"
+              label="Autonomielevel bei Stopptaste"
+              placeholder="Stopplevel"
+              wrapper-class="al_start"
+              help="Das ist der Autonomielevel, in den das Modul bei Drücken der Stopptaste versetzt wird."
+            />
 
-            <Fieldset legend="Automatischer Import der Autonomiestufen über KIC-API"
-                      :toggleable="true"
-                      :collapsed="true">
-              <span class="apilabel">KIC-API-URL zum Auslesen der Autonomiestufen</span>
-              <input v-model="alsurl"
-                     size="70"
-                     placeholder="http://www.hypsi.de/dev/kic/api/simulator/api.php?name=autonomylevels"
-                     class="alsurl" />
+            <Fieldset
+              legend="Automatischer Import der Autonomiestufen über KIC-API"
+              :toggleable="true"
+              :collapsed="true"
+            >
+              <span class="apilabel"
+                >KIC-API-URL zum Auslesen der Autonomiestufen</span
+              >
+              <input
+                v-model="alsurl"
+                size="70"
+                placeholder="http://www.hypsi.de/dev/kic/api/simulator/api.php?name=autonomylevels"
+                class="alsurl"
+              />
 
-              <br /><Button label="1. Read Autonomy-Level from API"
-                      @click="readAls"
-                      type="button"></Button>
+              <br /><Button
+                label="1. Read Autonomy-Level from API"
+                @click="readAls"
+                type="button"
+              ></Button>
 
-              <Button v-if="alsjson.levels?.length > 0"
-                      label="2. Import Autonomy-Levels into KI-Cockpit"
-                      @click="importAls"
-                      type="button"></Button>
+              <Button
+                v-if="alsjson.levels?.length > 0"
+                label="2. Import Autonomy-Levels into KI-Cockpit"
+                @click="importAls"
+                type="button"
+              ></Button>
 
-              <DataTable :value="alsjson.levels"
-                         showGridlines
-                         stripedRows
-                         tableClass="al_table"
-                         tableStyle="padding: 0.3rem">
-                <Column field="level"
-                        header="Level"
-                        bodyClass="text-center"></Column>
-                <Column field="name"
-                        header="Name"
-                        bodyClass="text-center"></Column>
-                <Column field="desc"
-                        header="Description"
-                        bodyClass="text-center"></Column>
+              <DataTable
+                :value="alsjson.levels"
+                showGridlines
+                stripedRows
+                tableClass="al_table"
+                tableStyle="padding: 0.3rem"
+              >
+                <Column
+                  field="level"
+                  header="Level"
+                  bodyClass="text-center"
+                ></Column>
+                <Column
+                  field="name"
+                  header="Name"
+                  bodyClass="text-center"
+                ></Column>
+                <Column
+                  field="desc"
+                  header="Description"
+                  bodyClass="text-center"
+                ></Column>
               </DataTable>
             </Fieldset>
           </TabPanel>
 
           <TabPanel header="Beschreibung">
-            <FormKit type="textarea"
-                     name="description"
-                     label="Beschreibung"
-                     placeholder="Modul-Beschreibung"
-                     rows="15"
-                     help="" />
+            <FormKit
+              type="textarea"
+              name="description"
+              label="Beschreibung"
+              placeholder="Modul-Beschreibung"
+              rows="15"
+              help=""
+            />
           </TabPanel>
           <TabPanel header="Klassifikation">
             <label for="logictype">Logiktyp</label>
-            <Listbox id="logictype"
-                     v-model="logictype"
-                     :options="logictypeOptionList"
-                     option-label="label"
-                     option-value="value"
-                     class="fontsmaller" />
+            <Listbox
+              id="logictype"
+              v-model="logictype"
+              :options="logictypeOptionList"
+              option-label="label"
+              option-value="value"
+              class="fontsmaller"
+            />
 
             <!-- <FormKit type="radio"
                      label="Lerntyp"
@@ -368,40 +405,57 @@ async function importAls() {
   ]"
                      validation="" /> -->
           </TabPanel>
-          <TabPanel v-if="!isNew"
-                    header="Risiken">
+          <TabPanel v-if="!isNew" header="Risiken">
             <label for="risks">Relevante Risiken:</label>
-            <Listbox id="risks"
-                     v-model="risk_ids"
-                     :options="riskOptionList"
-                     multiple
-                     option-label="label"
-                     option-value="value"
-                     class="" />
+            <Listbox
+              id="risks"
+              v-model="risk_ids"
+              :options="riskOptionList"
+              multiple
+              option-label="label"
+              option-value="value"
+              class=""
+            />
           </TabPanel>
           <TabPanel header="API-Config.">
-            <FormKit type="text"
-                     name="apiurl"
-                     label="API-Endpunkt für dieses Modul"
-                     placeholder=""
-                     help="z.B. https://www.kisystem.de/kicapi/v1/modules/1234/" />
-            <FormKit type="text"
-                     name="apiurl_al_active"
-                     label="Gesonderter API-Endpunkt nur für Autonomie-Stufen-Änderung (optional)"
-                     placeholder=""
-                     help="z.B. https://www.kisystem.de/kicapi/v1/modules/1234/autonomy-levels/active" />
+            <FormKit
+              type="text"
+              name="apiurl"
+              label="API-Endpunkt für dieses Modul"
+              placeholder=""
+              help="z.B. https://www.kisystem.de/kicapi/v1/modules/1234/"
+            />
+            <FormKit
+              type="text"
+              name="apiurl_al_active"
+              label="Gesonderter API-Endpunkt nur für Autonomie-Stufen-Änderung (optional)"
+              placeholder=""
+              help="z.B. https://www.kisystem.de/kicapi/v1/modules/1234/autonomy-levels/active"
+            />
+
+            <FormKit
+              type="text"
+              name="apimode"
+              label="API-Modus"
+              number="integer"
+              placeholder="0,1"
+              help="Sende API-Requests bei geänderter Autonomiestufe? 0 = nein, 1 = ja, sende API-Requests"
+            />
           </TabPanel>
           <TabPanel header="Admin">
             <EditorAdmin :e="editEntity" />
           </TabPanel>
         </TabView>
 
-        <Button class="cancel-button"
-                type="button"
-                @click="cancel()"
-                severity="danger"
-                outlined>
-          Cancel</Button>
+        <Button
+          class="cancel-button"
+          type="button"
+          @click="cancel()"
+          severity="danger"
+          outlined
+        >
+          Cancel</Button
+        >
       </FormKit>
     </div>
   </section>
@@ -419,7 +473,7 @@ async function importAls() {
   font-size: smaller;
 }
 
-.al_table .p-datatable-tbody>tr>td {
+.al_table .p-datatable-tbody > tr > td {
   padding: 0.4rem;
   min-width: 30%;
 }
@@ -438,7 +492,7 @@ async function importAls() {
 </style>
 
 <style scoped>
-.p-datatable .p-datatable-tbody>tr>td {
+.p-datatable .p-datatable-tbody > tr > td {
   padding: 0.3rem;
   background-color: red;
 }

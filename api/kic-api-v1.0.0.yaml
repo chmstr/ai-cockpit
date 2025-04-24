@@ -142,7 +142,7 @@ paths:
       tags:
       - KPIs
       parameters:
-      - $ref: '#/components/parameters/module_ID'
+      - $ref: '#/components/parameters/KPI_ID'
       responses:
         '200':
           description: Successful response
@@ -220,6 +220,11 @@ components:
       required:
         - level
         - name
+      example:  
+        level: 6
+        name: "Teilautomatisiert"
+        description: "System schlägt Aktionen vor, Mensch führt aus."
+        active: true
 
     SetAutonomyLevelRequest:
       type: object

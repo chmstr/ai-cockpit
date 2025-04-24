@@ -103,16 +103,12 @@ export async function sendPostRequest( url, data ){
 
 }
 
-export async function sendPatchRequest(url, level, comment) {
+export async function sendPatchRequest(url, payload ) {
+  console.log("apiurl: ", url );
+  console.log("payload: ", payload );
   try {
-    const payload = {
-      level: level,
-      comment: comment,
-    };
-    console.log("payload: ", payload);
-
     const response = await fetch(url, {
-      method: "POST",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },

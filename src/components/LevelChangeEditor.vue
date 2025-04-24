@@ -3,7 +3,7 @@ import { ref, inject, onMounted } from "vue";
 import { user } from "../lib/stores/user";
 import { ens as logs } from "../lib/stores/logs";
 import { ens as modules } from "../lib/stores/modules";
-import { sendPostRequest } from "../lib/shared/utils";
+import { sendPatchRequest } from "../lib/shared/utils";
 import { format } from "@formkit/tempo";
 import {
   ens as autonomylevels,
@@ -97,29 +97,40 @@ function loadEntity(id) {
   });
 }
 
-function changeModulAutonomylevel(apiurl, moduleid, al) {
-  console.log("changeModulAutonomylevel.apiurl", apiurl);
-  console.log("changeModulAutonomylevel.moduleid", moduleid);
+function changeModulAutonomylevel(module, al) {
+  // console.log("changeModulAutonomylevel.moduleid", moduleid);
   console.log("changeModulAutonomylevel.autonomylevel", al);
   const reqdata = {
-    moduleid: moduleid,
     level: al,
-    comment: "dummy comment",
   };
-  let resdata = sendPostRequest(apiurl, reqdata);
-  console.log(resdata);
+  console.log("changeModulAutonomylevel.request.data: ", reqdata);
+
+  console.log("changeModulAutonomylevel.apiurl", module.apiurl);
+  console.log(
+    "changeModulAutonomylevel.apiurl_al_active",
+    module.apiurl_al_active
+  );
+  let apiurl = module.apiurl + "/autonomy-levels/active";
+  if (module.apiurl_al_active && module.apiurl_al_active.length > 3)
+    apiurl = module.apiurl_al_active;
+  console.log("changeModulAutonomylevel.final.apiurl: ", apiurl);
+
+  let resdata = sendPatchRequest(apiurl, reqdata);
+  console.log("changeModulAutonomylevel.response data: ", resdata);
 }
 
 const formSubmit = (fields) => {
-  srcEntity.apiurl =
-    "http://www.hypsi.de/dev/kic/api/simulator/autonomylevel.php";
+  // srcEntity.apiurl =
+  //   "http://www.hypsi.de/dev/kic/api/simulator/autonomylevel.php";
 
-  changeModulAutonomylevel(
-    srcEntity.apiurl,
-    srcEntity.title,
-    editEntity.value.autonomylevel
-  );
+  let sendAPIcalls = false;
+  if (srcEntity.apimode && srcEntity.apimode > 0) sendAPIcalls = true;
+  console.log("sendAPIcalls: ", sendAPIcalls);
 
+  if (sendAPIcalls) {
+    console.log("send API_calls now.... ");
+    changeModulAutonomylevel(srcEntity, editEntity.value.autonomylevel);
+  } else console.log("skip API_calls.");
   let logaction = "";
 
   //einzige stelle (neben dem template), wo das Mapping der Felder passiert
@@ -166,7 +177,6 @@ function cancel() {
     Autonomiestufen-Änderung für:<br />
     Module {{ editEntity.title }}
   </h2>
-  <h3>{{ editEntity.description }}</h3>
   <FormKit
     type="form"
     @submit="formSubmit"

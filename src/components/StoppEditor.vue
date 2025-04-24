@@ -12,7 +12,7 @@ const emit = defineEmits(["onCancel", "onSave"]);
 const dialogRef = inject("dialogRef");
 const editEntity = ref(""); //generic entity name (ens = sein)
 
-onMounted(() => { });
+onMounted(() => {});
 
 function log(act, desc) {
   let log_values = {
@@ -58,7 +58,7 @@ const formSubmit = (fields) => {
       if (sendRequest) {
         try {
           console.log("sendrequest");
-          let res = sendPatchRequest(api_url, module.stoplevel, logmsg);
+          let res = sendPatchRequest(api_url, module.stoplevel);
           console.log("result: ", res);
         } catch (e) {
           console.error(e);
@@ -95,21 +95,24 @@ function cancel() {
   Die Ausführung der Stopptaste führt zu einer Änderung der Autonomiesstufen
   folgender Module:
 
-  <DataTable :value="modules.current"
-             dataKey="$id"
-             tableClass="listtable"
-             showGridlines
-             stripedRows
-             :rows="10"
-             sortField="title"
-             :sortOrder="+1">
-    <Column field="title"
-            header="Modul-Name"
-            style="vertical-align: text-top"
-            sortable></Column>
+  <DataTable
+    :value="modules.current"
+    dataKey="$id"
+    tableClass="listtable"
+    showGridlines
+    stripedRows
+    :rows="10"
+    sortField="title"
+    :sortOrder="+1"
+  >
+    <Column
+      field="title"
+      header="Modul-Name"
+      style="vertical-align: text-top"
+      sortable
+    ></Column>
 
-    <Column header="Autonomistufen-Änderung"
-            style="vertical-align: text-top">
+    <Column header="Autonomistufen-Änderung" style="vertical-align: text-top">
       <template #body="{ data }">
         {{ data.autonomylevel }} -> {{ data.stoplevel }}
         <b>{{ getLevelChangeInfo(data.autonomylevel, data.stoplevel) }}</b>
@@ -119,34 +122,41 @@ function cancel() {
 
   <div class="row"></div>
   <br />
-  <FormKit type="form"
-           @submit="formSubmit"
-           submit-label="KI-Stopp Taste ausführen!"
-           #default="{ value }"
-           prefix-icon="check"
-           v-model="editEntity"
-           :submit-attrs="{
-            id: 'stop-button',
-            inputClass: 'stop-input',
-            wrapperClass: 'stop-wrapper',
-            outerClass: 'stop-outer',
-            ignore: false,
-          }"
-           :config="{ disabled: !canEdit }">
+  <FormKit
+    type="form"
+    @submit="formSubmit"
+    submit-label="KI-Stopp Taste ausführen!"
+    #default="{ value }"
+    prefix-icon="check"
+    v-model="editEntity"
+    :submit-attrs="{
+      id: 'stop-button',
+      inputClass: 'stop-input',
+      wrapperClass: 'stop-wrapper',
+      outerClass: 'stop-outer',
+      ignore: false,
+    }"
+    :config="{ disabled: !canEdit }"
+  >
     <!-- validation="required|not:Admin" -->
 
-    <FormKit type="textarea"
-             name="description"
-             label="Begründung"
-             help=""
-             placeholder="Begründung der Änderung"
-             validation="required|not:Admin" />
+    <FormKit
+      type="textarea"
+      name="description"
+      label="Begründung"
+      help=""
+      placeholder="Begründung der Änderung"
+      validation="required|not:Admin"
+    />
 
-    <Button style="margin-bottom: 20px"
-            type="button"
-            @click="cancel()"
-            severity="danger"
-            outlined>Cancel</Button>
+    <Button
+      style="margin-bottom: 20px"
+      type="button"
+      @click="cancel()"
+      severity="danger"
+      outlined
+      >Cancel</Button
+    >
   </FormKit>
 </template>
 <style scoped>
