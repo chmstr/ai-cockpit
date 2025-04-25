@@ -1,6 +1,6 @@
 # KI-Cockpit (human on the loop) - Dokumentation
 
-![KIC-Screen](kic_screenshot25.png)
+![KIC-Screen](kic_screenshot26.png)
 
 <div class="page"/>
 
