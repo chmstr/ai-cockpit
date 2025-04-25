@@ -1,4 +1,4 @@
-# KI-Cockpit (human on the loop) - Dokumentation
+# KI-Cockpit (human on the loop) - Technisches Konzept
 
 ![KIC-Screen](kic_screenshot26.png)
 
@@ -6,7 +6,7 @@
 
 __Inhaltsverzeichnis der KI-Cockpit Dokumentation__
 
-- [KI-Cockpit (human on the loop) - Dokumentation](#ki-cockpit-human-on-the-loop---dokumentation)
+- [KI-Cockpit (human on the loop) - Technisches Konzept](#ki-cockpit-human-on-the-loop---technisches-konzept)
 - [Idee zum KI-Cockpit](#idee-zum-ki-cockpit)
 - [KI-Cockpit und EU-AI Act](#ki-cockpit-und-eu-ai-act)
 - [Domain Stories](#domain-stories)

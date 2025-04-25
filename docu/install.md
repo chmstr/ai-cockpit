@@ -1,6 +1,7 @@
-# Table of Contents
 
-- [Table of Contents](#table-of-contents)
+# AI Cockpit Human on the Loop: Installation Documentation
+
+- [AI Cockpit Human on the Loop: Installation Documentation](#ai-cockpit-human-on-the-loop-installation-documentation)
 - [Architecture](#architecture)
 - [Installation](#installation)
   - [Recommended IDE Setup](#recommended-ide-setup)
@@ -23,9 +24,9 @@
   - [Domain Objects](#domain-objects)
   - [KIC API Definition](#kic-api-definition)
 
-
 # Architecture
-The AI-Cockpit is a client-side java-script application based on the open source web-framework vue.js. 
+
+The AI-Cockpit is a client-side java-script application based on the open source web-framework vue.js.
 
 As backend there is appwrite used as an opensource backend as a server component.
 
