@@ -1,4 +1,4 @@
-const { VITE_DEFAULT_SYSTEM_ID, VITE_DEFAULT_SYSTEM_POOL_ID, VITE_ADMIN_USER_MAIL } = import.meta.env;
+const { VITE_DEFAULT_SYSTEM_ID, VITE_DEFAULT_SYSTEM_POOL_ID, VITE_ADMIN_USER_MAIL, VITE_LOGIN_MSG } = import.meta.env;
 
 export const KICD_DATABASE_ID = "kicd";
 export const RULES_COLLECTION_ID = "rules";
@@ -12,6 +12,7 @@ export const PROP_SYSTEMID = "systemId";
 export const DEFAULT_SYSTEM_ID = parseInt( VITE_DEFAULT_SYSTEM_ID );
 export const DEFAULT_SYSTEM_POOL_ID = parseInt( VITE_DEFAULT_SYSTEM_POOL_ID );
 export const ADMIN_USER_MAIL = VITE_ADMIN_USER_MAIL;
+export const LOGIN_MSG = VITE_LOGIN_MSG;
 
 export const MODAL_PROPS = {
     modal: true,

@@ -1,5 +1,6 @@
 <script setup>
 import { user } from "../lib/stores/user";
+import { LOGIN_MSG } from "../lib/shared/constants";
 import { ref } from "vue";
 
 const email = ref("");
@@ -8,6 +9,7 @@ const password = ref("");
 
 <template>
   <h1>Login or Register</h1>
+  {{ LOGIN_MSG }}
   <section>
     <form>
       <input type="email" placeholder="Email" v-model="email" />
