@@ -14,6 +14,7 @@ import { ens as risks2all } from "../lib/stores/risks2all";
 import { MODAL_PROPS } from "../lib/shared/constants";
 import { useDialog } from "primevue/usedialog";
 import StoppEditor from "../components/StoppEditor.vue";
+import { MAILER_URL } from "../lib/shared/constants.js";
 
 // const kpi1 = ref();
 //const kpi2 = ref();
@@ -125,12 +126,19 @@ function createKpiAlarmsByIndex(stepIndex) {
   console.log("checkKpiAlarms.alarm_email", alarm_email);
 
   if (alarm_email.length > 0 && text.length > 0) {
-    fetch(
-      "http://www.hypsi.de/dev/kic/endpointsimulator/mailer.php?mail=" +
-      alarm_email +
-      "&title=KIC-ALARM&text=" +
-      text
-    );
+    const mailer_url =
+      MAILER_URL + "?mail=" + alarm_email + "&title=KIC-ALARM&text=" + text;
+
+    console.log("mailerurl:", mailer_url);
+
+    try {
+      fetch(mailer_url);
+    } catch (error) {
+      console.log(
+        "-- Please define the VITE_MAILER_URL in the .env-Variable.--"
+      );
+      console.log(error);
+    }
   }
 }
 
@@ -171,68 +179,68 @@ const showForm = (id) => {
   <div class="dashboard">
     <div class="menu">
       <h1>KI-Cockpit Dashboard</h1>
-      <Menu :model="items"
-            v-if="false" />
-      <Button label="Stop"
-              severity="danger"
-              size="large"
-              icon="pi pi-times"
-              class="stop-button"
-              @click="showForm(11)">
+      <Menu :model="items" v-if="false" />
+      <Button
+        label="Stop"
+        severity="danger"
+        size="large"
+        icon="pi pi-times"
+        class="stop-button"
+        @click="showForm(11)"
+      >
         KI-Stopp-Taste
       </Button>
       <br />
-      <Button v-if="stepi < maxSteps"
-              class="step-button"
-              type="button"
-              @click="reloadAll()"
-              severity="secondary"
-              outlined>Nächste Demo-Woche</Button>
+      <Button
+        v-if="stepi < maxSteps"
+        class="step-button"
+        type="button"
+        @click="reloadAll()"
+        severity="secondary"
+        outlined
+        >Nächste Demo-Woche</Button
+      >
 
-      <Button class="reset-button"
-              type="button"
-              @click="resetStepi()"
-              severity="info"
-              outlined>Reset</Button>
+      <Button
+        class="reset-button"
+        type="button"
+        @click="resetStepi()"
+        severity="info"
+        outlined
+        >Reset</Button
+      >
     </div>
 
     <div class="main-content">
       <div class="top-menu"></div>
       <div class="content-list">
-        <div class="content-box"
-             v-for="dkpi in kpis.dashboardKpis">
-          <DashboardKpiChart :kpi="dkpi"
-                             :stepi="stepi" />
+        <div class="content-box" v-for="dkpi in kpis.dashboardKpis">
+          <DashboardKpiChart :kpi="dkpi" :stepi="stepi" />
         </div>
         <div class="content-box">
           <h2>Module</h2>
           <DashboardModules />
         </div>
-        <div class="content-box"
-             v-if="false">
+        <div class="content-box" v-if="false">
           <DashboardRisks :stepi="stepi" />
         </div>
 
-        <div class="content-box"
-             v-if="false">
+        <div class="content-box" v-if="false">
           <h2>Erreichen der Zielwerte in Testcases</h2>
           <DashboardTestcases />
         </div>
 
-        <div class="content-box"
-             v-if="false">
+        <div class="content-box" v-if="false">
           <h3>{{ risks.current.length }}</h3>
           <h3>Risiken</h3>
           <p>Ihre definierten Risiko-Management-Prozesse</p>
         </div>
-        <div class="content-box"
-             v-if="false">
+        <div class="content-box" v-if="false">
           <h3>{{ allmeasures.current.length }}</h3>
           <h3>Maßnahmen</h3>
           <p>Ihre festgelegten Maßnahmen</p>
         </div>
-        <div class="content-box"
-             v-if="false">
+        <div class="content-box" v-if="false">
           <h3>{{ kpis.current.length }}</h3>
           <h3>KPIs</h3>
           <p>
@@ -240,8 +248,7 @@ const showForm = (id) => {
             {{ kpis.dashboardKpis.length }} im Cockpit sichtbar.
           </p>
         </div>
-        <div class="content-box"
-             v-if="false">
+        <div class="content-box" v-if="false">
           <h3>{{ testcases.current.length }}</h3>
           <h3>Testcases</h3>
           <p>Ihre definierten Testcases und Ergebnisse</p>

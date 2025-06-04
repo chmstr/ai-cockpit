@@ -167,3 +167,6 @@ Have a look in the [KIC-Documentation](/docu/index.md) (only available in german
 ## KIC API Definition
 
 Have a look in the [KIC API Definition Draft](/api/kic-api-v1.0.0.yaml)
+
+Hint: You can simulate the API-Endpoint by using tools like [prism](https://github.com/stoplightio/prism). Run the following command to start the API-endpoint according to the examples in the kic-api:
+> prism mock api/kic-api-v1.0.0.yaml
