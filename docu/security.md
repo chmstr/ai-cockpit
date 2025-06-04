@@ -18,7 +18,7 @@ Informationssicherheit ist kein einmaliges Projekt, sondern ein fortlaufender Pr
 
 Die vorhandene Dokumentation zur Installation, Konfiguration und zum technischen Konzept stellt die Nachvollziehbarkeit der getroffenen Entscheidungen sicher. Alle relevante Aktionen im KI-Cockpit selbst werden im Backend mitgeloggt und stehen für sicherheitskritische Auswertungen bereit.
 
-## Informationssicherheits-Managementsystems
+## Informationssicherheits-Managementsystem
 
 Das KI-Cockpit ist vom Betreiber im Rahmen des Einsatzes in der eigenen Systemlandschaft in das Informationssicherheits-Managementsystems (ISMS) einzubinden.
 
