@@ -4,7 +4,7 @@ Das HON-KI-Cockpit (<https://github.com/chmstr/ai-cockpit>) erfüllt die vom BSI
 
 ## Analyse von Risiken und Auswahl sowie Umsetzung geeigneter Schutzmaßnahmen gemäß BSI IT-Grundschutz
 
-Die Analyse von Risiken ist elementarer Teil des Vorgehensmodell zum Einsatz des KI-Cockpits, dazu zählen sowohl Risiken, die sich auf das beobachtete KI-System als auch das KI-Cockpit selbst beziehen. Die Dokumentation der Risiken sowie Umsetzung geeigneter Schutzmanßnahmen wird als Maßnahmen im KI-Cockpit vorgenommen und dokumentiert.
+Die Analyse von Risiken ist elementarer Teil des Vorgehensmodell zum Einsatz des KI-Cockpits, dazu zählen sowohl Risiken, die sich auf das beobachtete KI-System als auch das KI-Cockpit selbst beziehen. Die Dokumentation der Risiken sowie Umsetzung geeigneter Schutzmanßnahmen wird während der Konfiguration im KI-Cockpit selbst vorgenommen und dokumentiert.
 
 ## BSI-Leitfaden für sichere KI-Systementwicklung
 
